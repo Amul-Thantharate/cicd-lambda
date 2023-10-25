@@ -1,0 +1,15 @@
+version: 0.2
+
+phases: 
+    build: 
+        commands: 
+            - echo "zip my lambda function"
+            - zip -r deploy_package.zip  lambda_function.py
+    post_build: 
+        commands: 
+            - echo "Deploying to lambda function"
+            - aws lambda update-function-code --function-name hello_world_cicd --zip-file fileb://deploy_package.zip
+artifacts: 
+    type: zip
+    path: 
+      - "*"
